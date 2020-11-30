@@ -9,6 +9,13 @@
 #include "measurement_package.h"
 #include "tools.h"
 
+
+enum class DataIdxR {sensor_type, rho_measured, phi_measured, rhodot_measured, timestamp, x_groundtruth, y_groundtruth,
+                     vx_groundtruth, vy_groundtruth, yaw_groundtruth, yawrate_groundtruth};
+
+enum class DataIdxL {sensor_type, x_measured, y_measured, timestamp, x_groundtruth, y_groundtruth,
+                     vx_groundtruth, vy_groundtruth, yaw_groundtruth, yawrate_groundtruth};
+
 class FusionEKF {
  public:
   /**
@@ -44,6 +51,7 @@ class FusionEKF {
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;
   Eigen::MatrixXd Hj_;
+  Eigen::MatrixXd Q_base_;  // Q without the time
 };
 
 #endif // FusionEKF_H_

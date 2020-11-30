@@ -30,6 +30,9 @@ string hasData(string s) {
 }
 
 int main() {
+  std::cout << "Press a key to continue" << std::endl;
+  getchar();
+
   uWS::Hub h;
 
   // Create a Kalman Filter instance
