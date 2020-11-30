@@ -30,7 +30,7 @@ string hasData(string s) {
 }
 
 int main() {
-  std::cout << "Press a key to continue" << std::endl;
+  std::cout << "Press enter to continue. You might want to attach debugger before." << std::endl;
   getchar();
 
   uWS::Hub h;
