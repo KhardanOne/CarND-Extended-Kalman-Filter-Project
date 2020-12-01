@@ -1,4 +1,5 @@
 #include "kalman_filter.h"
+#include "debug_print.h"
 #include <iostream>
 
 using Eigen::MatrixXd;
@@ -43,7 +44,7 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
-   * TODO: update the state by using Extended Kalman Filter equations
+   * DONE: update the state by using Extended Kalman Filter equations
    */
   VectorXd y = z - CartesianToPolar(x_);
   y[1] = atan2(sin(y[1]), cos(y[1]));  // crop phi between -pi and +pi
@@ -61,7 +62,7 @@ Eigen::VectorXd KalmanFilter::CartesianToPolar(const Eigen::VectorXd &in) {
   double vpy = in(3);
   double rho = sqrt(ppx * ppx + ppy * ppy);
   if (rho < 0.0001) {
-    std::cout << "rho too low, setting to 0.0001 ====================================================================================================" << std::endl;
+    debug_print("rho too low, setting to 0.0001 ====================================================================================================" << std::endl);
     rho = 0.0001;
   }
   double phi = atan2(ppy, ppx);
