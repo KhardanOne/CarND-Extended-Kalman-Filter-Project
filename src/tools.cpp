@@ -31,12 +31,22 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
     rmse += residual;
   }
 
+  std::cout << "_last_ ground truth:" << std::endl;
+  std::cout << ground_truth[ground_truth.size()-1] << std::endl;
+
   // calculate the mean
   rmse = rmse / estimations.size();
-  std::cout << "rmse:\n" << rmse << std::endl;
 
   // calculate the squared root
   rmse = rmse.array().sqrt();
+
+  if (rmse(0) > 1. || rmse(1) > 1. || rmse(2) > 10. || rmse(3) > 10.) {
+    std::cout << "_accumulated_ rmse: ===================================================================================================================\n"
+      << rmse << std::endl;
+  }
+  else {
+    std::cout << "_accumulated_ rmse:\n" << rmse << std::endl;
+  }
 
   return rmse;
 }
@@ -50,8 +60,9 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float vy = x_state(3);
   float px2py2 = px * px + py * py;
   if (px2py2 < 0.0001) {  // check division by zero
-    std::cout << "CalculateJakobian () - Error - Division by Zero" << std::endl;
-    return MatrixXd::Zero(3, 4);
+    std::cout << "CalculateJakobian () - Error - Division by Zero ==========================================================================" << std::endl;
+    px2py2 = 0.0001;
+    //return MatrixXd::Zero(3, 4);
   }
 
   MatrixXd Hj(3, 4);
